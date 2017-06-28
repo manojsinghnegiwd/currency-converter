@@ -26,7 +26,7 @@ export default {
 	},
 	methods: {
 		symbolChange: function (val) {
-			this.$emit('symbolChange', val)
+			this.$emit('symbolChange', val, this.name)
 		}
 	},
 	props: ['list', 'initialvalue', 'name']

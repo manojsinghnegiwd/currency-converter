@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ title }}</h1>
-    <symbol-list v-on:symbolChange="symbolChange" :list="currency_list" name="base" :initialvalue="base"></symbol-list>
-    <symbol-list v-on:symbolChange="symbolChange" :list="currency_list" name="target" :initialvalue="target"></symbol-list>
+    <symbol-list v-on:symbolChange="symbolChange" :list="baseList()" name="base" :initialvalue="base"></symbol-list>
+    <symbol-list v-on:symbolChange="symbolChange" :list="targetList()" name="target" :initialvalue="target"></symbol-list>
   </div>
 </template>
 
@@ -64,8 +64,14 @@ export default {
     
   },
   methods: {
-    symbolChange: function (val) {
-      console.log(val)
+    symbolChange: function (val, name) {
+      this[name] = val 
+    },
+    baseList: function () {
+      return this.currency_list.filter(currency => currency.name != this.target.name)
+    },
+    targetList: function () {
+      return this.currency_list.filter(currency => currency.name != this.base.name)
     }
   }
 }
