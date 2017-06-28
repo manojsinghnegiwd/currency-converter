@@ -4,7 +4,7 @@
     <symbol-list v-on:symbolChange="symbolChange" :list="baseList()" name="base" :initialvalue="base"></symbol-list>
     <symbol-list v-on:symbolChange="symbolChange" :list="targetList()" name="target" :initialvalue="target"></symbol-list>
 
-    <input type="number" name="base_amount" v-model="base_amount">
+    <input v-on:keyup="convertRates" type="number" name="base_amount" v-model="base_amount">
 
     <span>{{target_amount}}</span>
 
@@ -87,10 +87,11 @@ export default {
   methods: {
     symbolChange: function (val, name) {
       this[name] = val;
-
+      this.convertRates()
+    },
+    convertRates: function () {
       convertRates(this.base.name, this.target.name)
         .then(res => this.target_amount = res * this.base_amount);
-
     },
     baseList: function () {
       return this.currency_list.filter(currency => currency.name != this.target.name)
