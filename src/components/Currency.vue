@@ -18,8 +18,8 @@
         <input min="1" v-on:change="convertRates" v-on:keyup="convertRates" type="number" name="base_amount" v-model="base_amount">
       </div>
       <div>
-        <h5 class="target-amount u-text-center">{{base_amount}} {{base.name}} = {{target_amount}} {{target.name}}</h5>
-        <p class="u-text-center">Made by <a href="http://manojsinghnegi.com/">Manoj Singh Negi</a> with <a href="https://vuejs.org/">Vue.js</a></p>
+        <h5 v-if="base_amount" class="target-amount u-text-center">{{base_amount}} {{base.name}} = {{target_amount}} {{target.name}}</h5>
+        <p class="u-text-center branding">Made by <a href="http://manojsinghnegi.com/">Manoj Singh Negi</a> with <a href="https://vuejs.org/">Vue.js</a></p>
       </div>
     </div>
   </div>
@@ -106,7 +106,7 @@ export default {
     convertRates: function () {
 
       if(!this.base_amount) {
-        this.base_amount = 1;
+        return;
       }
 
       convertRates(this.base.name, this.target.name)
