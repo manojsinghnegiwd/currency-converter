@@ -1,6 +1,12 @@
 <template>
-  <div id="app">
-    <currency></currency>
+  <div class="row" id="app">
+  	<div class="one-third column">
+    </div>
+    <div class="one-third column">
+    	<currency></currency>
+    </div>
+    <div class="one-third column">
+    </div>
   </div>
 </template>
 

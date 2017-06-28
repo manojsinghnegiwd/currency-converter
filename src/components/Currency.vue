@@ -1,13 +1,23 @@
 <template>
   <div class="hello">
-    <h1>{{ title }}</h1>
-    <symbol-list v-on:symbolChange="symbolChange" :list="baseList()" name="base" :initialvalue="base"></symbol-list>
-    <symbol-list v-on:symbolChange="symbolChange" :list="targetList()" name="target" :initialvalue="target"></symbol-list>
+    <h3 class="u-text-center main-heading">{{ title }}</h3>
 
-    <input v-on:keyup="convertRates" type="number" name="base_amount" v-model="base_amount">
-
-    <span>{{target_amount}}</span>
-
+    <div class="row">
+      <div class="one-half column">
+        <symbol-list v-on:symbolChange="symbolChange" :list="baseList()" name="base" :initialvalue="base"></symbol-list>
+      </div>
+      <div class="one-half column">
+        <symbol-list v-on:symbolChange="symbolChange" :list="targetList()" name="target" :initialvalue="target"></symbol-list>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <input min="1" v-on:change="convertRates" v-on:keyup="convertRates" type="number" name="base_amount" v-model="base_amount">
+      </div>
+      <div>
+        <h5 class="target-amount u-text-center">{{base_amount}} {{base.name}} = {{target_amount}} {{target.name}}</h5>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,7 +76,7 @@ export default {
   },
   data () {
     return {
-      title: 'Currency Converter',
+      title: 'Convert Currency',
       currency_list: [],
       base: '',
       target: '',
@@ -90,8 +100,13 @@ export default {
       this.convertRates()
     },
     convertRates: function () {
+
+      if(!this.base_amount) {
+        this.base_amount = 1;
+      }
+
       convertRates(this.base.name, this.target.name)
-        .then(res => this.target_amount = res * this.base_amount);
+        .then(res => this.target_amount = res * parseInt(this.base_amount, 10));
     },
     baseList: function () {
       return this.currency_list.filter(currency => currency.name != this.target.name)
@@ -106,6 +121,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
 
 </style>
 ,

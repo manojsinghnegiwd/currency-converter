@@ -1,0 +1,19 @@
+.column {
+	min-height: 1px;
+}
+
+select, input {
+	width: 100%;
+}
+
+.u-text-center {
+	text-align: center;
+}
+
+.main-heading {
+	padding: 50px 0px;
+}
+
+.target-amount {
+	padding: 20px 0px;
+}
