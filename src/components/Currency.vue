@@ -1,21 +1,14 @@
 <template>
   <div class="hello">
     <h1>{{ title }}</h1>
-    <select name="base" v-model="base">
-      <option v-bind:value="currency" v-for="currency in currency_list">
-        {{ currency.name }}
-      </option>
-    </select>
-    <select name="target" v-model="target">
-      <option v-bind:value="currency" v-for="currency in currency_list">
-        {{ currency.name }}
-      </option>
-    </select>
+    <symbol-list v-on:symbolChange="symbolChange" :list="currency_list" name="base" :initialvalue="base"></symbol-list>
+    <symbol-list v-on:symbolChange="symbolChange" :list="currency_list" name="target" :initialvalue="target"></symbol-list>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import SymbolList from './SymbolList';
 const fixerUrl = 'http://api.fixer.io/latest'
 
 function getRates (base) {
@@ -47,6 +40,9 @@ function getRates (base) {
 
 export default {
   name: 'currency',
+  components: {
+    SymbolList
+  },
   data () {
     return {
       title: 'Currency Converter',
@@ -67,8 +63,10 @@ export default {
       })
     
   },
-  updated: function () {
-    console.log(this.base)
+  methods: {
+    symbolChange: function (val) {
+      console.log(val)
+    }
   }
 }
 
