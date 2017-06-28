@@ -4,18 +4,22 @@
 
     <div class="row">
       <div class="one-half column">
+        <label>From</label>
         <symbol-list v-on:symbolChange="symbolChange" :list="baseList()" name="base" :initialvalue="base"></symbol-list>
       </div>
       <div class="one-half column">
+        <label>To</label>
         <symbol-list v-on:symbolChange="symbolChange" :list="targetList()" name="target" :initialvalue="target"></symbol-list>
       </div>
     </div>
     <div class="row">
       <div>
+        <label>Amount</label>
         <input min="1" v-on:change="convertRates" v-on:keyup="convertRates" type="number" name="base_amount" v-model="base_amount">
       </div>
       <div>
         <h5 class="target-amount u-text-center">{{base_amount}} {{base.name}} = {{target_amount}} {{target.name}}</h5>
+        <p class="u-text-center">Made by <a href="http://manojsinghnegi.com/">Manoj Singh Negi</a> with <a href="https://vuejs.org/">Vue.js</a></p>
       </div>
     </div>
   </div>
