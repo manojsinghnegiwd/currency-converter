@@ -19,7 +19,7 @@
       </div>
       <div>
         <h5 v-if="base_amount" class="target-amount u-text-center">{{base_amount}} {{base.name}} = {{target_amount}} {{target.name}}</h5>
-        <p class="u-text-center branding">Made by <a href="http://manojsinghnegi.com/">Manoj Singh Negi</a> with <a href="https://vuejs.org/">Vue.js</a></p>
+        <p class="u-text-center branding">Made by <a target="_blank" href="http://manojsinghnegi.com/">Manoj Singh Negi</a> with <a target="_blank" href="https://vuejs.org/">Vue.js</a></p>
       </div>
     </div>
   </div>
