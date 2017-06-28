@@ -11,8 +11,8 @@
         {{ currency }}
       </option>
     </select>
-    <input name="base_amount" v-model="base_amount" />
-    <input name="to_amount" v-model="to_amount" />
+    <input v-on:keypress="onPriceChange" name="base_amount" v-model="base_amount" />
+    <input v-on:keypress="onPriceChange" name="to_amount" v-model="to_amount" />
   </div>
 </template>
 
@@ -20,11 +20,14 @@
 import axios from 'axios';
 const fixerUrl = 'http://api.fixer.io/latest'
 
-var currency_list = [
-  'USD',
-  'INR',
-  'GBP'
-]
+function convert (base, to) {
+  axios.get(fixerUrl, {
+    params: {
+      base: base
+      symbols: `${base},${to}`
+    }
+  }).then(res => conz)
+}
 
 export default {
   name: 'currency',
@@ -53,6 +56,13 @@ export default {
         this.to = this.currency_list[1];
 
       })
+  },  
+  methods: {
+    onPriceChange: function (e) {
+      
+
+
+    }
   }
 }
 
