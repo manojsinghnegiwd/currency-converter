@@ -3,6 +3,11 @@
     <h1>{{ title }}</h1>
     <symbol-list v-on:symbolChange="symbolChange" :list="baseList()" name="base" :initialvalue="base"></symbol-list>
     <symbol-list v-on:symbolChange="symbolChange" :list="targetList()" name="target" :initialvalue="target"></symbol-list>
+
+    <input type="number" name="base_amount" v-model="base_amount">
+
+    <span>{{target_amount}}</span>
+
   </div>
 </template>
 
@@ -38,6 +43,22 @@ function getRates (base) {
   })
 }
 
+function convertRates (base, target) {
+  return axios.get(fixerUrl, {
+    params: {
+      base: base,
+      symbols: target
+    }
+  }).then(res => {
+
+    const {data} = res;
+    var currency_list = [];
+
+    return data.rates[target];
+  
+  })
+}
+
 export default {
   name: 'currency',
   components: {
@@ -49,8 +70,8 @@ export default {
       currency_list: [],
       base: '',
       target: '',
-      base_amount: 0,
-      target_amount: 0
+      base_amount: 1,
+      target_amount: 1
     }
   },
   created: function () {
@@ -65,7 +86,11 @@ export default {
   },
   methods: {
     symbolChange: function (val, name) {
-      this[name] = val 
+      this[name] = val;
+
+      convertRates(this.base.name, this.target.name)
+        .then(res => this.target_amount = res * this.base_amount);
+
     },
     baseList: function () {
       return this.currency_list.filter(currency => currency.name != this.target.name)
